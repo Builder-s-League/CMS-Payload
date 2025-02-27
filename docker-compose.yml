@@ -15,6 +15,19 @@ services:
       mongo:
         condition: service_healthy
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1'
+        reservations:
+          memory: 512M
+    tmpfs:
+      - /tmp
+      - /var/cache
+    environment:
+      - NODE_ENV=production
+      - PAYLOAD_CONFIG_PATH=dist/payload.config.js
 
   mongo:
     image: mongo:latest
@@ -28,6 +41,13 @@ services:
       driver: none
     networks:
       - dokploy-network
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+          cpus: '0.5'
+        reservations:
+          memory: 256M
     healthcheck:
       test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
       interval: 10s
@@ -38,6 +58,12 @@ services:
 
 volumes:
   data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /data/mongodb
+      o: bind
+      size: '5GB'
 
 networks:
   dokploy-network:
