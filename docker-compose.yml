@@ -12,7 +12,9 @@ services:
     networks:
       - dokploy-network
     depends_on:
-      - mongo
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
 
   mongo:
     image: mongo:latest
@@ -26,6 +28,13 @@ services:
       driver: none
     networks:
       - dokploy-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    restart: unless-stopped
 
 volumes:
   data:
