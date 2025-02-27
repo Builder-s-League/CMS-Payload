@@ -2,45 +2,34 @@ version: '3'
 
 services:
   payload:
-    image: node:18-alpine
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - '3001:3001'
-    volumes:
-      - .:/home/node/app
-      - node_modules:/home/node/app/node_modules
-    working_dir: /home/node/app/
-    command: sh -c "yarn install && yarn dev"
-    depends_on:
-      - mongo
     env_file:
       - .env
     networks:
-      # app-network:
       - dokploy-network
+    depends_on:
+      - mongo
 
-  # mongo:
-  #   image: mongo:latest
-  #   ports:
-  #     - '27017:27017'
-  #   command:
-  #     - --storageEngine=wiredTiger
-  #   volumes:
-  #     - data:/data/db
-  #   logging:
-  #     driver: none
-    # networks:
-    #   app-network:
-    #     ipv4_address: 192.168.0.2
+  mongo:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    command:
+      - --storageEngine=wiredTiger
+    volumes:
+      - data:/data/db
+    logging:
+      driver: none
+    networks:
+      - dokploy-network
 
 volumes:
   data:
-  node_modules:
 
 networks:
   dokploy-network:
     external: true
-  # app-network:
-  #   driver: bridge
-  #   ipam:
-  #     config:
-  #       - subnet: 192.168.0.0/24
