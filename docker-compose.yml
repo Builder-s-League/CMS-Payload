@@ -1,22 +1,21 @@
 version: '3'
 
 services:
-  # payload:
-  #   image: node:18-alpine
-  #   ports:
-  #     - '3001:3001'
-  #   volumes:
-  #     - .:/home/node/app
-  #     - node_modules:/home/node/app/node_modules
-  #   working_dir: /home/node/app/
-  #   command: sh -c "yarn install && yarn dev"
-  #   depends_on:
-  #     - mongo
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     # app-network:
-  #     - dokploy-network
+  payload:
+    image: node:18-alpine
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/home/node/app
+      - node_modules:/home/node/app/node_modules
+    working_dir: /home/node/app/
+    command: sh -c "yarn install && yarn dev"
+    depends_on:
+      - mongo
+    env_file:
+      - .env
+    networks:
+      app-network:
 
   mongo:
     image: mongo:latest
@@ -28,19 +27,17 @@ services:
       - data:/data/db
     logging:
       driver: none
-    # networks:
-      # app-network:
-      #   ipv4_address: 192.168.0.2
+    networks:
+      app-network:
+        ipv4_address: 192.168.0.2
 
 volumes:
   data:
   node_modules:
 
-# networks:
-  # dokploy-network:
-  #   external: true
-  # app-network:
-  #   driver: bridge
-  #   ipam:
-  #     config:
-  #       - subnet: 192.168.0.0/24
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.0.0/24
