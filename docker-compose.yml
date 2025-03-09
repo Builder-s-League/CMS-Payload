@@ -30,7 +30,6 @@ services:
     logging:
       driver: none
     networks:
-      dokploy-network: null
       app-network:
         ipv4_address: 10.21.20.32
 
