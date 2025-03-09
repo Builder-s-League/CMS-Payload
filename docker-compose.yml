@@ -15,7 +15,7 @@ services:
     env_file:
       - .env
     labels:
-      - dokploy.networks.app-network.network_mode=host
+      - dokploy.networks.app-network.network_mode=bridge
 
   mongo:
     image: mongo:latest
@@ -28,7 +28,7 @@ services:
     logging:
       driver: none
     labels:
-      - dokploy.networks.app-network.network_mode=host
+      - dokploy.networks.app-network.network_mode=bridge
 
 volumes:
   data:
