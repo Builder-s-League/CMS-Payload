@@ -15,7 +15,7 @@ services:
     env_file:
       - .env
     networks:
-      - app-network
+      - dokploy-network
     labels:
       # 👇 Force host network
       - dokploy.networks.app-network.network_mode=host
@@ -31,7 +31,7 @@ services:
     logging:
       driver: none
     networks:
-      - app-network
+      - dokploy-network
     labels:
       # ✅ Force host mode for MongoDB
       - dokploy.networks.app-network.network_mode=host
@@ -39,7 +39,3 @@ services:
 volumes:
   data:
   node_modules:
-
-networks:
-  app-network:
-    driver: bridge
