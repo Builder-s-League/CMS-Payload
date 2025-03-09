@@ -17,17 +17,6 @@ services:
     networks:
       - app-network
     labels:
-      - traefik.enable=true
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-web.rule=Host(`payloadcms.buildersleague.origatou.net`)
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-web.entrypoints=web
-      - traefik.http.services.buiders-league-edition-1-payload-cms-hu4ghc-4-web.loadbalancer.server.port=3001
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-web.service=buiders-league-edition-1-payload-cms-hu4ghc-4-web
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-web.middlewares=redirect-to-https@file
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-websecure.rule=Host(`payloadcms.buildersleague.origatou.net`)
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-websecure.entrypoints=websecure
-      - traefik.http.services.buiders-league-edition-1-payload-cms-hu4ghc-4-websecure.loadbalancer.server.port=3001
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-websecure.service=buiders-league-edition-1-payload-cms-hu4ghc-4-websecure
-      - traefik.http.routers.buiders-league-edition-1-payload-cms-hu4ghc-4-websecure.tls.certresolver=letsencrypt
       # 👇 Force host network
       - dokploy.networks.app-network.network_mode=host
 
