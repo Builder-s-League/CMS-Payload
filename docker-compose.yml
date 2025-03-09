@@ -32,6 +32,9 @@ services:
       driver: none
     networks:
       - app-network
+    labels:
+      # ✅ Force host mode for MongoDB
+      - dokploy.networks.app-network.network_mode=host
 
 volumes:
   data:
