@@ -14,8 +14,10 @@ services:
       - mongo
     env_file:
       - .env
-    labels:
-      - dokploy.networks.app-network.network_mode=bridge
+    networks:
+      dokploy-network: null
+      app-network:
+        ipv4_address: 10.21.20.33
 
   mongo:
     image: mongo:latest
@@ -28,17 +30,17 @@ services:
     logging:
       driver: none
     networks:
-      - dokploy-network
-    labels:
-      - dokploy.networks.app-network.network_mode=bridge
+      dokploy-network: null
+      app-network:
+        ipv4_address: 10.21.20.32
 
 volumes:
   data:
   node_modules:
 
-# networks:
-#   app-network:
-#     driver: bridge
-#     ipam:
-#       config:
-#         - subnet: 10.21.20.0/24
+networks:
+  app-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.21.20.0/24
