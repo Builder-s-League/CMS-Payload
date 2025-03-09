@@ -27,7 +27,7 @@ services:
       - data:/data/db
     logging:
       driver: none
-    network:
+    networks:
       - dokploy-network
 
 volumes:
