@@ -27,8 +27,8 @@ services:
       - data:/data/db
     logging:
       driver: none
-    labels:
-      - dokploy.networks.app-network.network_mode=bridge
+    network:
+      - dokploy-network
 
 volumes:
   data:
