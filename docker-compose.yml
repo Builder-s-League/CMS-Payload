@@ -29,6 +29,8 @@ services:
       driver: none
     networks:
       - dokploy-network
+    labels:
+      - dokploy.networks.app-network.network_mode=bridge
 
 volumes:
   data:
